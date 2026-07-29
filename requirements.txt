@@ -1,0 +1,2 @@
+# This project uses only Python standard library components.
+# Render.com looks for this file to identify a Python environment.

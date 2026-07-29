@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickCheck — Антифрод-сканер</title>
+    <meta name="description" content="QuickCheck поможет защитить вас от мошенников. Вставьте подозрительное сообщение, и наш ИИ проверит его по строгим банковским правилам.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Animated background particles -->
+    <div class="bg-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div class="app-container">
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                        <path d="M9 12l2 2 4-4"></path>
+                    </svg>
+                </div>
+                <h1 class="logo-text">Quick<span class="accent">Check</span></h1>
+            </div>
+            <p class="subtitle">Ваш персональный сканер безопасности</p>
+            <p class="description">Искусственный интеллект QuickCheck анализирует сообщения на предмет социальной инженерии, фишинга и мошенничества. Просто вставьте текст, выберите страну, и мы дадим точный вердикт с указанием статьи УК.</p>
+        </header>
+
+        <!-- Stats bar -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                <span>Банковская защита</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                <span>Проверено: <strong id="totalScans">0</strong></span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                <span>100% приватность</span>
+            </div>
+        </div>
+
+        <!-- How it works -->
+        <div class="how-it-works">
+            <button class="hiw-toggle" id="hiwToggle">
+                <span>Как это работает?</span>
+                <svg class="hiw-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="hiw-content" id="hiwContent">
+                <div class="hiw-steps">
+                    <div class="hiw-step">
+                        <div class="step-num">1</div>
+                        <div class="step-body">
+                            <strong>Вставьте сообщение</strong>
+                            <p>Скопируйте подозрительное SMS, сообщение из WhatsApp или Telegram и вставьте в поле ввода.</p>
+                        </div>
+                    </div>
+                    <div class="hiw-step">
+                        <div class="step-num">2</div>
+                        <div class="step-body">
+                            <strong>ИИ анализирует</strong>
+                            <p>Нейросеть проверяет текст по банковским правилам безопасности и законам вашей страны.</p>
+                        </div>
+                    </div>
+                    <div class="hiw-step">
+                        <div class="step-num">3</div>
+                        <div class="step-body">
+                            <strong>Получите вердикт</strong>
+                            <p>Увидите чёткий результат с уровнем угрозы, статьёй УК и инструкцией к действию.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <main class="main-content">
+            <div class="glow-border-wrap">
+            <div class="glass-panel input-section">
+                <div class="settings-bar">
+                    <div class="country-flag" id="countryFlag"><svg width="24" height="18" viewBox="0 0 20 15" fill="none"><rect width="20" height="15" rx="2" fill="#00AFCA"/><circle cx="10" cy="7.5" r="3" fill="#FFE100"/></svg></div>
+                    <select id="countrySelect" class="custom-select">
+                        <option value="РК">Казахстан (УК РК)</option>
+                        <option value="РФ">Россия (УК РФ)</option>
+                    </select>
+                </div>
+                <div class="textarea-wrapper">
+                    <textarea id="messageInput" placeholder="Вставьте подозрительное SMS или сообщение из мессенджера сюда..." rows="6"></textarea>
+                    <div class="char-count"><span id="charCount">0 символов</span> · Ctrl+Enter</div>
+                </div>
+                <div class="example-chips">
+                    <span class="chip-label">Примеры:</span>
+                    <button class="chip chip-danger" data-example="scam"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Мошенники</button>
+                    <button class="chip chip-warn" data-example="suspicious"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg> Подозрительно</button>
+                    <button class="chip chip-safe" data-example="safe"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> Безопасно</button>
+                </div>
+                <div class="ocr-upload">
+                    <input type="file" id="imageUpload" accept="image/*" hidden>
+                    <button class="secondary-btn ocr-btn" id="ocrButton">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                        <span>Загрузить скриншот</span>
+                    </button>
+                    <div id="ocrPreview" class="ocr-preview hidden"></div>
+                </div>
+                <button id="scanButton" class="primary-btn">
+                    <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <span class="btn-text">Проверить сообщение</span>
+                    <span class="btn-loader hidden">
+                        <svg class="spinner" viewBox="0 0 50 50">
+                            <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+                        </svg>
+                    </span>
+                </button>
+            </div>
+            </div>
+
+            <!-- Scanning animation overlay -->
+            <div id="scanOverlay" class="scan-overlay hidden">
+                <div class="cyber-laser"></div>
+                <div class="scan-animation">
+                    <div class="scan-ring"></div>
+                    <div class="scan-ring ring-2"></div>
+                    <div class="scan-ring ring-3"></div>
+                    <svg class="scan-center-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                </div>
+                <p class="scan-text" id="scanText">Анализируем сообщение...</p>
+                <div class="scan-steps">
+                    <span class="scan-step" id="scanStep"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-3px"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg> Поиск признаков мошенничества...</span>
+                </div>
+                <div class="scan-progress">
+                    <div class="scan-progress-bar"></div>
+                </div>
+            </div>
+
+            <div id="resultSection" class="glass-panel result-section hidden">
+                <div class="verdict-header">
+                    <div class="verdict-icon" id="verdictIcon"></div>
+                    <div id="verdictBadge" class="verdict-badge"></div>
+                </div>
+                
+                <!-- Risk meter -->
+                <div class="risk-meter" id="riskMeter">
+                    <div class="risk-label">Уровень угрозы</div>
+                    <div class="risk-bar-bg">
+                        <div class="risk-bar-fill" id="riskBarFill"></div>
+                    </div>
+                    <div class="risk-value" id="riskValue">0%</div>
+                </div>
+
+                <div class="result-details">
+                    <div class="detail-block">
+                        <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Почему такой вердикт?</h3>
+                        <p id="explanationText"></p>
+                    </div>
+                    <div class="detail-block">
+                        <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> Что делать дальше?</h3>
+                        <p id="instructionsText"></p>
+                    </div>
+                    <div class="detail-block" id="lawBlock">
+                        <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg> Юрисдикция</h3>
+                        <p id="lawText"></p>
+                    </div>
+                    <div class="detail-block hidden" id="extractedBlock">
+                        <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> Обнаружено в тексте</h3>
+                        <div id="extractedContent" class="extracted-tags"></div>
+                    </div>
+                    <div class="detail-block hidden" id="socialEngBlock">
+                        <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> Признаки социальной инженерии</h3>
+                        <ul id="socialEngList" class="se-list"></ul>
+                    </div>
+                    <div class="detail-block hidden" id="ocrTextBlock">
+                        <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg> Распознанный текст</h3>
+                        <p id="ocrTextContent" class="ocr-text-result"></p>
+                    </div>
+                </div>
+                
+                <div class="share-row">
+                    <span class="share-label">Поделиться:</span>
+                    <button class="share-btn share-tg" id="shareTg" title="Отправить в Telegram">
+                        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M21.198 2.433a2.242 2.242 0 0 0-1.022.215l-16.5 7.5a2.25 2.25 0 0 0 .126 4.148l4.47 1.49 1.15 4.025c.164.573.71.942 1.309.923.364-.012.71-.17.954-.437l2.67-2.923 4.88 3.6a2.25 2.25 0 0 0 3.518-1.42l3.05-14.5a2.25 2.25 0 0 0-2.605-2.62z"></path></svg>
+                    </button>
+                    <button class="share-btn share-wa" id="shareWa" title="Отправить в WhatsApp">
+                        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                    </button>
+                </div>
+
+                <div class="result-actions">
+                    <button class="secondary-btn" id="copyButton">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        <span id="copyText">Скопировать</span>
+                    </button>
+                    <button class="secondary-btn" id="resetButton">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+                        Новая проверка
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- History -->
+        <div class="glass-panel history-section" id="historySection" style="display:none;">
+            <div class="history-header">
+                <h3>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    История проверок
+                </h3>
+                <button class="clear-history-btn" id="clearHistoryBtn">Очистить</button>
+            </div>
+            <div class="history-list" id="historyList"></div>
+        </div>
+
+        <!-- Safety Tips Ticker -->
+        <div class="tips-ticker">
+            <div class="ticker-track">
+                <span class="ticker-item"><svg class="ticker-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Банк НИКОГДА не запрашивает CVV-код по телефону</span>
+                <span class="ticker-item"><svg class="ticker-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Не переходите по ссылкам из подозрительных SMS</span>
+                <span class="ticker-item"><svg class="ticker-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> Не сообщайте коды из SMS третьим лицам</span>
+                <span class="ticker-item"><svg class="ticker-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> При сомнениях звоните в банк по номеру на карте</span>
+                <span class="ticker-item"><svg class="ticker-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line></svg> «Безопасный счёт» — это всегда мошенничество</span>
+                <span class="ticker-item"><svg class="ticker-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg> Настоящий сотрудник банка знает ваше ФИО</span>
+                <span class="ticker-item"><svg class="ticker-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Банк НИКОГДА не запрашивает CVV-код по телефону</span>
+                <span class="ticker-item"><svg class="ticker-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Не переходите по ссылкам из подозрительных SMS</span>
+                <span class="ticker-item"><svg class="ticker-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> Не сообщайте коды из SMS третьим лицам</span>
+                <span class="ticker-item"><svg class="ticker-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> При сомнениях звоните в банк по номеру на карте</span>
+                <span class="ticker-item"><svg class="ticker-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line></svg> «Безопасный счёт» — это всегда мошенничество</span>
+                <span class="ticker-item"><svg class="ticker-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg> Настоящий сотрудник банка знает ваше ФИО</span>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="how-it-works">
+            <button class="hiw-toggle" id="faqToggle">
+                <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Частые схемы мошенничества</span>
+                <svg class="hiw-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="hiw-content" id="faqContent">
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <div class="faq-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent-light)" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg></div>
+                        <div>
+                            <strong>«Ваш счёт заблокирован»</strong>
+                            <p>Мошенники звонят от имени банка, сообщают о блокировке и просят перевести деньги на «безопасный счёт».</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent-light)" stroke-width="2"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg></div>
+                        <div>
+                            <strong>«Вы выиграли приз!»</strong>
+                            <p>Сообщения о выигрыше в конкурсе, в котором вы не участвовали — это ловушка для кражи данных.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent-light)" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></div>
+                        <div>
+                            <strong>Фишинговые ссылки</strong>
+                            <p>Ссылки на поддельные сайты банков или магазинов для кражи логинов и паролей.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent-light)" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg></div>
+                        <div>
+                            <strong>«Назовите код из SMS»</strong>
+                            <p>Никому не сообщайте коды подтверждения — даже если звонящий представляется сотрудником банка.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="trust-badge">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="trust-icon"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg>
+                <span>Защищено умными алгоритмами QuickCheck. 100% конфиденциальность.</span>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="support-info">
+                    <h4>Служба поддержки</h4>
+                    <p>Нужна помощь? <a href="#">support@quickcheck.app</a></p>
+                    <p>8 (800) 555-01-99</p>
+                </div>
+                
+                <div class="social-links">
+                    <h4>Мы в соцсетях</h4>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Telegram"><svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21.198 2.433a2.242 2.242 0 0 0-1.022.215l-16.5 7.5a2.25 2.25 0 0 0 .126 4.148l4.47 1.49 1.15 4.025c.164.573.71.942 1.309.923.364-.012.71-.17.954-.437l2.67-2.923 4.88 3.6a2.25 2.25 0 0 0 3.518-1.42l3.05-14.5a2.25 2.25 0 0 0-2.605-2.62zM6.923 13.064l2.84-.947 7.02-6.556-5.83 7.07-4.03-1.343v1.776z"></path></svg></a>
+                        <a href="#" aria-label="VK"><svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.82 14.15l-2.02-.04c-.3 0-.6-.18-.83-.49-.78-1.05-1.57-2.05-2.04-2.31-.22-.12-.47-.16-.62-.1-.23.09-.38.31-.38.58v1.72c0 .35-.2.53-.59.58-1.63.2-3.41-.47-4.73-1.89C3.89 12.33 3.65 9 3.64 8.7c0-.28.16-.47.46-.49h1.96c.26 0 .47.16.57.4.52 1.57 1.34 2.92 2.24 3.7.19.16.4.23.57.19.17-.04.28-.2.28-.42V8.76c0-.28-.15-.46-.43-.54-.15-.04-.15-.15-.05-.27.17-.18.47-.25.9-.25h1.72c.26 0 .41.13.41.38v2.75c0 .24.16.36.37.38.22.01.48-.09.68-.28.9-.84 1.63-2.17 2-3.38.1-.33.31-.5.64-.5h2.08c.37 0 .5.2.45.47-.1.53-.59 1.44-1.28 2.37-.58.78-1.22 1.4-1.12 1.58.11.19.38.38.74.77.72.77 1.34 1.56 1.6 2.19.14.33 0 .55-.42.55z"></path></svg></a>
+                        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg></a>
+                    </div>
+                </div>
+            </div>
+
+            <p class="copyright">&copy; 2026 QuickCheck. Все данные обрабатываются в режиме реального времени и не сохраняются.</p>
+        </footer>
+    </div>
+    <!-- Toast container -->
+    <div id="toastContainer" class="toast-container"></div>
+    <script src="script.js"></script>
+</body>
+</html>

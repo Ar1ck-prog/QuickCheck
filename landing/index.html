@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickCheck — ИИ-защита от мошенников | Антифрод-сканер</title>
+    <meta name="description" content="QuickCheck — нейросетевой сканер, который мгновенно распознаёт мошеннические сообщения, фишинг и социальную инженерию. Защитите себя и близких.">
+    <meta name="keywords" content="QuickCheck, антифрод, мошенничество, фишинг, социальная инженерия, ИИ, искусственный интеллект, безопасность">
+    <meta property="og:title" content="QuickCheck — ИИ-защита от мошенников">
+    <meta property="og:description" content="Мгновенный анализ подозрительных сообщений. Нейросеть распознаёт мошенников за секунды.">
+    <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Cursor glow follower -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- Grain overlay for texture -->
+    <div class="grain-overlay"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo">
+                <div class="nav-logo-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        <path d="M9 12l2 2 4-4"></path>
+                    </svg>
+                </div>
+                <span class="nav-logo-text">Quick<span class="accent">Check</span></span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="#problems" class="nav-link">Проблемы</a>
+                <a href="#features" class="nav-link">Возможности</a>
+                <a href="#how-it-works" class="nav-link">Как работает</a>
+                <a href="#stats" class="nav-link">Статистика</a>
+                <a href="#faq" class="nav-link">FAQ</a>
+            </div>
+            <a href="#cta" class="nav-cta">Попробовать бесплатно</a>
+            <button class="nav-hamburger" id="navHamburger" aria-label="Открыть меню">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile menu overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+        <div class="mobile-menu-content">
+            <a href="#problems" class="mobile-menu-link">Проблемы</a>
+            <a href="#features" class="mobile-menu-link">Возможности</a>
+            <a href="#how-it-works" class="mobile-menu-link">Как работает</a>
+            <a href="#stats" class="mobile-menu-link">Статистика</a>
+            <a href="#faq" class="mobile-menu-link">FAQ</a>
+            <a href="#cta" class="mobile-menu-cta">Попробовать бесплатно</a>
+        </div>
+    </div>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <div class="hero-orb hero-orb-1"></div>
+            <div class="hero-orb hero-orb-2"></div>
+            <div class="hero-orb hero-orb-3"></div>
+            <div class="hero-grid"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                <span>Powered by AI · QuickCheck Neural Engine</span>
+            </div>
+            <h1 class="hero-title">
+                <span class="hero-line">Мошенники</span>
+                <span class="hero-line">больше <span class="gradient-text">не пройдут</span></span>
+            </h1>
+            <p class="hero-subtitle">
+                QuickCheck — это умный алгоритм нового поколения, который мгновенно распознаёт мошеннические сообщения, фишинговые ссылки и схемы социальной инженерии. Просто вставьте подозрительное сообщение — и получите чёткий вердикт за секунды.
+            </p>
+            <div class="hero-actions">
+                <a href="#cta" class="btn-primary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    Начать проверку
+                </a>
+                <a href="#how-it-works" class="btn-secondary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    Как это работает
+                </a>
+            </div>
+            <div class="hero-trust">
+                <div class="trust-avatars">
+                    <div class="trust-avatar" style="background: linear-gradient(135deg, #667eea, #764ba2);">A</div>
+                    <div class="trust-avatar" style="background: linear-gradient(135deg, #f093fb, #f5576c);">K</div>
+                    <div class="trust-avatar" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">Д</div>
+                    <div class="trust-avatar" style="background: linear-gradient(135deg, #43e97b, #38f9d7);">M</div>
+                    <div class="trust-avatar trust-avatar-more">+2K</div>
+                </div>
+                <span class="trust-text">Более <strong>2 000</strong> пользователей уже защищены</span>
+            </div>
+        <div class="hero-visual">
+            <div class="hero-phone">
+                <div class="phone-notch"></div>
+                <div class="phone-screen">
+                    <div class="phone-header">
+                        <span class="phone-status-dot safe"></span>
+                        <span>QuickCheck</span>
+                    </div>
+                    <div class="phone-message incoming">
+                        <p>Срочно! Ваша карта заблокирована. Перейдите по ссылке для разблокировки: bit.ly/x8k2m</p>
+                        <span class="msg-time">14:23</span>
+                    </div>
+                    <div class="phone-scan-line"></div>
+                    <div class="phone-verdict">
+                        <div class="verdict-icon-anim">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff4757" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                        </div>
+                        <span class="verdict-label danger"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: text-bottom; margin-right: 4px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>МОШЕННИЧЕСТВО</span>
+                        <div class="verdict-bar">
+                            <div class="verdict-bar-fill" style="width: 94%;"></div>
+                        </div>
+                        <span class="verdict-percent">Угроза: 94%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="floating-badge badge-shield">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                <span>Защита 24/7</span>
+            </div>
+            <div class="floating-badge badge-ai">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                <span>Нейросеть</span>
+            </div>
+            <div class="floating-badge badge-law">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                <span>Статьи УК</span>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- ===== MARQUEE STRIP ===== -->
+    <div class="marquee-strip">
+        <div class="marquee-track">
+            <span class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> Антифрод</span>
+            <span class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"></rect><circle cx="12" cy="5" r="2"></circle><line x1="12" y1="7" x2="12" y2="11"></line><circle cx="9" cy="16" r="1"></circle><circle cx="15" cy="16" r="1"></circle></svg> Нейросеть</span>
+            <span class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg> Мгновенный анализ</span>
+            <span class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg> SMS-проверка</span>
+            <span class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> 100% приватность</span>
+            <span class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg> Юрисдикция РК & РФ</span>
+            <span class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg> Чтение скриншотов</span>
+            <span class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg> Уровень угрозы</span>
+            <span class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> Антифрод</span>
+            <span class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"></rect><circle cx="12" cy="5" r="2"></circle><line x1="12" y1="7" x2="12" y2="11"></line><circle cx="9" cy="16" r="1"></circle><circle cx="15" cy="16" r="1"></circle></svg> Нейросеть</span>
+            <span class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg> Мгновенный анализ</span>
+            <span class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg> SMS-проверка</span>
+            <span class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> 100% приватность</span>
+            <span class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg> Юрисдикция РК & РФ</span>
+            <span class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg> Чтение скриншотов</span>
+            <span class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg> Уровень угрозы</span>
+        </div>
+    </div>
+
+    <!-- ===== PROBLEMS SECTION ===== -->
+    <section class="section problems" id="problems">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag">Проблема</span>
+                <h2 class="section-title">Мошенники становятся <span class="gradient-text">умнее</span></h2>
+                <p class="section-desc">Каждый день тысячи людей теряют деньги из-за мошеннических SMS, звонков и сообщений в мессенджерах. Вот реальная картина:</p>
+            </div>
+
+            <div class="problems-grid">
+                <div class="problem-card" data-aos="fade-up">
+                    <div class="problem-icon" style="--accent: #ff6b6b;">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                    </div>
+                    <div class="problem-stat">₸157 млрд</div>
+                    <h3>Потери от мошенничества</h3>
+                    <p>Общий ущерб от телефонного и интернет-мошенничества в СНГ за последний год. И эта цифра растёт.</p>
+                </div>
+                <div class="problem-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="problem-icon" style="--accent: #ffa502;">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    </div>
+                    <div class="problem-stat">68%</div>
+                    <h3>Не распознают мошенников</h3>
+                    <p>Большинство людей не могут отличить мошенническое сообщение от настоящего уведомления банка.</p>
+                </div>
+                <div class="problem-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="problem-icon" style="--accent: #a29bfe;">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    </div>
+                    <div class="problem-stat">45+</div>
+                    <h3>Возраст жертв растёт</h3>
+                    <p>Наиболее уязвимы люди старше 45 лет — родители, бабушки и дедушки, которые доверяют «звонкам из банка».</p>
+                </div>
+                <div class="problem-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="problem-icon" style="--accent: #00cec9;">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    </div>
+                    <div class="problem-stat">< 3 мин</div>
+                    <h3>Время атаки</h3>
+                    <p>Мошенники создают давление и заставляют действовать за минуты. Нет времени думать — нужна мгновенная проверка.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SOLUTION SECTION ===== -->
+    <section class="section solution" id="solution">
+        <div class="section-container">
+            <div class="solution-layout">
+                <div class="solution-text">
+                    <span class="section-tag">Решение</span>
+                    <h2 class="section-title">QuickCheck — ваш <span class="gradient-text">цифровой телохранитель</span></h2>
+                    <p class="solution-desc">
+                        QuickCheck использует собственный умный алгоритм для мгновенного анализа любых подозрительных сообщений. 
+                        Мы не просто определяем мошенничество — мы объясняем <em>почему</em> это опасно и <em>что делать</em> дальше.
+                    </p>
+                    <div class="solution-checks">
+                        <div class="check-item">
+                            <div class="check-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <span>Распознаёт 50+ типов мошеннических схем</span>
+                        </div>
+                        <div class="check-item">
+                            <div class="check-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <span>Указывает конкретную статью Уголовного кодекса</span>
+                        </div>
+                        <div class="check-item">
+                            <div class="check-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <span>Работает на русском и казахском языках</span>
+                        </div>
+                        <div class="check-item">
+                            <div class="check-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <span>Анализ подозрительных скриншотов</span>
+                        </div>
+                        <div class="check-item">
+                            <div class="check-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <span>100% приватность — данные не сохраняются</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="solution-visual">
+                    <div class="solution-card-stack">
+                        <div class="sol-card sol-card-1">
+                            <div class="sol-card-header">
+                                <span class="sol-badge danger">🚨 Мошенничество</span>
+                                <span class="sol-threat">Угроза: 94%</span>
+                            </div>
+                            <p>Фишинговая ссылка обнаружена. Сообщение содержит признаки социальной инженерии.</p>
+                            <div class="sol-card-footer">
+                                <span>ст. 190 УК РК — Мошенничество</span>
+                            </div>
+                        </div>
+                        <div class="sol-card sol-card-2">
+                            <div class="sol-card-header">
+                                <span class="sol-badge warning">⚠️ Подозрительно</span>
+                                <span class="sol-threat warn">Угроза: 62%</span>
+                            </div>
+                            <p>Обнаружены манипулятивные приёмы: создание срочности, запрос персональных данных.</p>
+                        </div>
+                        <div class="sol-card sol-card-3">
+                            <div class="sol-card-header">
+                                <span class="sol-badge safe">✅ Безопасно</span>
+                                <span class="sol-threat safe-t">Угроза: 5%</span>
+                            </div>
+                            <p>Стандартное банковское уведомление. Угрозы не обнаружены.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FEATURES SECTION ===== -->
+    <section class="section features" id="features">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag">Возможности</span>
+                <h2 class="section-title">Что умеет <span class="gradient-text">QuickCheck</span></h2>
+                <p class="section-desc">Полный арсенал инструментов для защиты от мошенников — в одном приложении</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card feature-large" data-aos="fade-up">
+                    <div class="feature-glow"></div>
+                    <div class="feature-icon-wrap">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                    </div>
+                    <h3>Нейросетевой анализ</h3>
+                    <p>Собственный умный алгоритм QuickCheck обрабатывает сообщения, выявляя паттерны мошенничества, фишинга и социальной инженерии с точностью профессионального аналитика безопасности.</p>
+                </div>
+
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-glow"></div>
+                    <div class="feature-icon-wrap" style="--feat-color: #f093fb;">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                    </div>
+                    <h3>Статьи УК РК и РФ</h3>
+                    <p>Для каждого вердикта QuickCheck указывает конкретную статью Уголовного кодекса — Казахстана или России — с пояснением наказания.</p>
+                </div>
+
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-glow"></div>
+                    <div class="feature-icon-wrap" style="--feat-color: #00cec9;">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                    </div>
+                    <h3>Проверка скриншотов</h3>
+                    <p>Загрузите скриншот мошеннического SMS — мы автоматически распознаем текст и тут же проверит его на угрозы.</p>
+                </div>
+
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-glow"></div>
+                    <div class="feature-icon-wrap" style="--feat-color: #ffd32a;">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                    </div>
+                    <h3>Шкала уровня угрозы</h3>
+                    <p>Наглядная визуальная шкала от 0% до 100% показывает, насколько опасно полученное сообщение. Никакой двусмысленности.</p>
+                </div>
+
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-glow"></div>
+                    <div class="feature-icon-wrap" style="--feat-color: #ff6b6b;">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    </div>
+                    <h3>Детектор социальной инженерии</h3>
+                    <p>Определяет манипулятивные техники: создание срочности, давление авторитетом, ложные угрозы, запрос конфиденциальных данных.</p>
+                </div>
+
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-glow"></div>
+                    <div class="feature-icon-wrap" style="--feat-color: #a29bfe;">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    </div>
+                    <h3>История проверок</h3>
+                    <p>Все ваши проверки сохраняются локально в истории. Вернитесь к любому вердикту в любой момент — без регистрации и облака.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== HOW IT WORKS SECTION ===== -->
+    <section class="section how-it-works-section" id="how-it-works">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag">Процесс</span>
+                <h2 class="section-title">Как работает <span class="gradient-text">QuickCheck</span></h2>
+                <p class="section-desc">Три простых шага между подозрительным сообщением и спокойствием</p>
+            </div>
+
+            <div class="steps-timeline">
+                <div class="timeline-line"></div>
+                <div class="step-card" data-aos="fade-right">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <div class="step-icon-wrap">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                        </div>
+                        <h3>Вставьте сообщение</h3>
+                        <p>Скопируйте подозрительное SMS, сообщение из WhatsApp, Telegram или любого другого мессенджера. Или загрузите скриншот.</p>
+                    </div>
+                </div>
+                <div class="step-card" data-aos="fade-left" data-aos-delay="200">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <div class="step-icon-wrap" style="--step-color: #f093fb;">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                        </div>
+                        <h3>ИИ анализирует</h3>
+                        <p>Нейросеть проверяет текст по банковским правилам безопасности, базе данных мошеннических паттернов и законам вашей страны.</p>
+                    </div>
+                </div>
+                <div class="step-card" data-aos="fade-right" data-aos-delay="400">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <div class="step-icon-wrap" style="--step-color: #43e97b;">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                        </div>
+                        <h3>Получите вердикт</h3>
+                        <p>Чёткий результат с уровнем угрозы, объяснением вердикта, статьёй УК и пошаговой инструкцией — что делать дальше.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== STATS COUNTER SECTION ===== -->
+    <section class="section stats-section" id="stats">
+        <div class="stats-bg">
+            <div class="stats-orb stats-orb-1"></div>
+            <div class="stats-orb stats-orb-2"></div>
+        </div>
+        <div class="section-container">
+            <div class="stats-grid">
+                <div class="stat-block" data-aos="zoom-in">
+                    <div class="stat-number" data-target="50">0</div>
+                    <div class="stat-suffix">+</div>
+                    <div class="stat-label">Типов мошенничества</div>
+                    <div class="stat-desc">которые распознаёт QuickCheck</div>
+                </div>
+                <div class="stat-block" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="stat-number" data-target="3">0</div>
+                    <div class="stat-suffix">сек</div>
+                    <div class="stat-label">Время анализа</div>
+                    <div class="stat-desc">от вставки до вердикта</div>
+                </div>
+                <div class="stat-block" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="stat-number" data-target="100">0</div>
+                    <div class="stat-suffix">%</div>
+                    <div class="stat-label">Приватность</div>
+                    <div class="stat-desc">данные не сохраняются</div>
+                </div>
+                <div class="stat-block" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="stat-number" data-target="2">0</div>
+                    <div class="stat-suffix">страны</div>
+                    <div class="stat-label">Юрисдикции</div>
+                    <div class="stat-desc">Казахстан и Россия</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== USE CASES / SCENARIOS ===== -->
+    <section class="section scenarios" id="scenarios">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag">Сценарии</span>
+                <h2 class="section-title">Когда QuickCheck <span class="gradient-text">спасает</span></h2>
+                <p class="section-desc">Реальные ситуации, в которых QuickCheck предотвращает потерю денег и данных</p>
+            </div>
+
+            <div class="scenarios-grid">
+                <div class="scenario-card" data-aos="fade-up">
+                    <div class="scenario-emoji"><svg class="scenario-svg-anim" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg></div>
+                    <h3>SMS от «банка»</h3>
+                    <p>«Ваша карта заблокирована, срочно перейдите по ссылке...» — QuickCheck мгновенно определит фишинговую ссылку и предупредит вас.</p>
+                    <div class="scenario-tag danger">Высокий риск</div>
+                </div>
+                <div class="scenario-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="scenario-emoji"><svg class="scenario-svg-anim" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg></div>
+                    <h3>«Вы выиграли приз!»</h3>
+                    <p>Сообщение о выигрыше в конкурсе, в котором вы не участвовали — классическая схема сбора персональных данных.</p>
+                    <div class="scenario-tag warning">Подозрительно</div>
+                </div>
+                <div class="scenario-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="scenario-emoji"><svg class="scenario-svg-anim" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+                    <h3>Звонок «из полиции»</h3>
+                    <p>Мошенники представляются сотрудниками МВД и пугают уголовным делом. QuickCheck распознает типичные приёмы давления.</p>
+                    <div class="scenario-tag danger">Высокий риск</div>
+                </div>
+                <div class="scenario-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="scenario-emoji"><svg class="scenario-svg-anim" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></div>
+                    <h3>Фишинговая ссылка</h3>
+                    <p>Ссылка на «обновление данных» или «оплату доставки» ведёт на поддельный сайт — QuickCheck предупредит заранее.</p>
+                    <div class="scenario-tag danger">Высокий риск</div>
+                </div>
+                <div class="scenario-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="scenario-emoji"><svg class="scenario-svg-anim" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg></div>
+                    <h3>«Безопасный счёт»</h3>
+                    <p>Звонок от «службы безопасности банка» с просьбой перевести деньги на «безопасный счёт» — это ВСЕГДА мошенничество.</p>
+                    <div class="scenario-tag danger">Высокий риск</div>
+                </div>
+                <div class="scenario-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="scenario-emoji"><svg class="scenario-svg-anim" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
+                    <h3>Настоящее уведомление</h3>
+                    <p>Не уверены, что SMS от банка настоящее? QuickCheck проверит и подтвердит, что сообщение безопасно.</p>
+                    <div class="scenario-tag safe">Безопасно</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FAQ SECTION ===== -->
+    <section class="section faq-section" id="faq">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag">FAQ</span>
+                <h2 class="section-title">Частые <span class="gradient-text">вопросы</span></h2>
+            </div>
+
+            <div class="faq-accordion">
+                <div class="faq-item-acc" data-aos="fade-up">
+                    <button class="faq-question">
+                        <span>QuickCheck бесплатный?</span>
+                        <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Да! QuickCheck полностью бесплатен для личного использования. Мы верим, что защита от мошенников — это базовое право каждого человека.</p>
+                    </div>
+                </div>
+                <div class="faq-item-acc" data-aos="fade-up" data-aos-delay="50">
+                    <button class="faq-question">
+                        <span>Какие данные вы сохраняете?</span>
+                        <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Никакие. Все данные обрабатываются в реальном времени и сразу удаляются. Мы не храним ваши сообщения на серверах — 100% приватность гарантирована.</p>
+                    </div>
+                </div>
+                <div class="faq-item-acc" data-aos="fade-up" data-aos-delay="100">
+                    <button class="faq-question">
+                        <span>Как QuickCheck определяет мошенничество?</span>
+                        <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>QuickCheck использует собственный умный алгоритм, обученный на тысячах примеров мошеннических сообщений. ИИ анализирует лингвистические паттерны, ссылки, номера телефонов, стиль давления и сопоставляет с базой данных статей Уголовного кодекса.</p>
+                    </div>
+                </div>
+                <div class="faq-item-acc" data-aos="fade-up" data-aos-delay="150">
+                    <button class="faq-question">
+                        <span>Можно ли проверять скриншоты?</span>
+                        <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Да! QuickCheck оснащён встроенным Чтение скриншотовом. Просто загрузите скриншот подозрительного сообщения — система автоматически распознает текст и проведёт полный анализ.</p>
+                    </div>
+                </div>
+                <div class="faq-item-acc" data-aos="fade-up" data-aos-delay="200">
+                    <button class="faq-question">
+                        <span>Для каких стран работает QuickCheck?</span>
+                        <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>На данный момент QuickCheck поддерживает юрисдикции Казахстана (УК РК) и России (УК РФ). Мы работаем над расширением на другие страны СНГ.</p>
+                    </div>
+                </div>
+                <div class="faq-item-acc" data-aos="fade-up" data-aos-delay="250">
+                    <button class="faq-question">
+                        <span>Что делать, если QuickCheck обнаружил мошенничество?</span>
+                        <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>QuickCheck даёт пошаговую инструкцию в каждом вердикте: не отвечать на сообщение, заблокировать отправителя, позвонить в банк по номеру на карте и при необходимости обратиться в полицию.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA SECTION ===== -->
+    <section class="section cta-section" id="cta">
+        <div class="cta-bg">
+            <div class="cta-orb cta-orb-1"></div>
+            <div class="cta-orb cta-orb-2"></div>
+        </div>
+        <div class="section-container">
+            <div class="cta-content">
+                <h2 class="cta-title">Защитите себя <span class="gradient-text">прямо сейчас</span></h2>
+                <p class="cta-desc">Не ждите, пока мошенники доберутся до вас или ваших близких. Проверьте подозрительное сообщение за 3 секунды — абсолютно бесплатно.</p>
+                <a href="../index.html" class="btn-primary btn-large">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg>
+                    Открыть QuickCheck
+                </a>
+                <p class="cta-note">Бесплатно · Без регистрации · 100% приватно</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer">
+        <div class="section-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="nav-logo-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg>
+                        </div>
+                        <span class="nav-logo-text">Quick<span class="accent">Check</span></span>
+                    </div>
+                    <p class="footer-tagline">Ваш персональный ИИ-антифрод помощник. Защита от мошенников на базе специализированного ИИ.</p>
+                </div>
+                <div class="footer-links-col">
+                    <h4>Навигация</h4>
+                    <a href="#problems">Проблемы</a>
+                    <a href="#features">Возможности</a>
+                    <a href="#how-it-works">Как работает</a>
+                    <a href="#faq">FAQ</a>
+                </div>
+                <div class="footer-links-col">
+                    <h4>Контакты</h4>
+                    <a href="mailto:support@quickcheck.app">support@quickcheck.app</a>
+                    <a href="tel:+78005550199">8 (800) 555-01-99</a>
+                </div>
+                <div class="footer-links-col">
+                    <h4>Соцсети</h4>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Telegram">
+                            <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="1.5" fill="none"><path d="M21.198 2.433a2.242 2.242 0 0 0-1.022.215l-16.5 7.5a2.25 2.25 0 0 0 .126 4.148l4.47 1.49 1.15 4.025c.164.573.71.942 1.309.923.364-.012.71-.17.954-.437l2.67-2.923 4.88 3.6a2.25 2.25 0 0 0 3.518-1.42l3.05-14.5a2.25 2.25 0 0 0-2.605-2.62z"></path></svg>
+                        </a>
+                        <a href="#" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="1.5" fill="none"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom-bar">
+                <p>&copy; 2026 QuickCheck. Часть проекта <strong>NEXTus</strong>. Все права защищены.</p>
+                <p>Все данные обрабатываются в режиме реального времени и не сохраняются.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

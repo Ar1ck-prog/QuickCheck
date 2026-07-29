@@ -1,0 +1,13 @@
+# Environment Variables
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Editor/OS
+.vscode/
+.DS_Store
+Thumbs.db
