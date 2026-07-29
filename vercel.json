@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/index.py" }
+  ],
+  "redirects": [
+    { "source": "/", "destination": "/landing/index.html", "permanent": false }
+  ]
+}
