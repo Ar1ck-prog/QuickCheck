@@ -456,10 +456,83 @@ def call_ai_api(prompt, image_data=None):
         ai_text = json_match.group(0)
     
     try:
-        return json.loads(ai_text)
-    except json.JSONDecodeError as e:
-        print(f"[PARSE ERROR] AI response was not valid JSON:\n---BEGIN RAW---\n{ai_text}\n---END RAW---")
-        raise e
+        parsed = json.loads(ai_text)
+        return normalize_ai_response(parsed)
+    except json.JSONDecodeError:
+        # AI sometimes returns broken JSON — try to repair it
+        print(f"[PARSE] First parse failed, attempting JSON repair...")
+        repaired = repair_json(ai_text)
+        try:
+            parsed = json.loads(repaired)
+            print(f"[PARSE] JSON repair succeeded!")
+            return normalize_ai_response(parsed)
+        except json.JSONDecodeError as e2:
+            print(f"[PARSE ERROR] JSON repair also failed: {e2}")
+            print(f"[PARSE ERROR] Raw AI text:\n---BEGIN---\n{ai_text}\n---END---")
+            # Return a fallback instead of crashing
+            return normalize_ai_response({
+                "verdict": "ПОДОЗРИТЕЛЬНО",
+                "explanation": "ИИ вернул ответ в некорректном формате. Рекомендуем повторить анализ.",
+                "instructions": "Попробуйте отсканировать сообщение ещё раз.",
+                "risk_score": 50
+            })
+
+def repair_json(text):
+    """Attempt to fix common JSON errors from AI output."""
+    import re
+    # Remove markdown code fences
+    text = re.sub(r'```json\s*', '', text)
+    text = re.sub(r'```\s*', '', text)
+    # Remove BOM and zero-width characters
+    text = text.replace('\ufeff', '').replace('\u200b', '')
+    # Fix trailing commas before } or ]
+    text = re.sub(r',\s*([}\]])', r'\1', text)
+    # Fix missing commas between "value" "key" patterns (e.g. "text"\n  "next_key")
+    text = re.sub(r'(\")\s*\n\s*(\")', r'\1,\n\2', text)
+    # Fix missing comma after number/boolean/null followed by "key"
+    text = re.sub(r'(\d)\s*\n\s*(\")', r'\1,\n\2', text)
+    text = re.sub(r'(null|true|false)\s*\n\s*(\")', r'\1,\n\2', text)
+    # Fix missing comma after ] followed by "key"  
+    text = re.sub(r'(\])\s*\n\s*(\")', r'\1,\n\2', text)
+    return text
+
+def normalize_ai_response(data):
+    """Ensure all required fields exist with correct types.
+    This prevents frontend crashes when the AI omits or misformats fields."""
+    
+    # Normalize verdict
+    verdict = str(data.get("verdict", "ПОДОЗРИТЕЛЬНО")).upper().strip()
+    valid_verdicts = {"МОШЕННИКИ", "ПОДОЗРИТЕЛЬНО", "БЕЗОПАСНО"}
+    if verdict not in valid_verdicts:
+        # Try to match partial strings
+        if "МОШЕН" in verdict or "SCAM" in verdict.upper():
+            verdict = "МОШЕННИКИ"
+        elif "БЕЗОПАС" in verdict or "SAFE" in verdict.upper():
+            verdict = "БЕЗОПАСНО"
+        else:
+            verdict = "ПОДОЗРИТЕЛЬНО"
+    data["verdict"] = verdict
+    
+    # Normalize risk_score — must be an integer 0-100
+    try:
+        risk_score = int(data.get("risk_score", 50))
+        risk_score = max(0, min(100, risk_score))
+    except (ValueError, TypeError):
+        risk_score = 50
+    data["risk_score"] = risk_score
+    
+    # Ensure text fields exist
+    data.setdefault("explanation", "Анализ завершён.")
+    data.setdefault("instructions", "Действуйте по своему усмотрению.")
+    data.setdefault("detected_article", None)
+    
+    # Ensure social_engineering_signs is a list of strings
+    signs = data.get("social_engineering_signs", [])
+    if not isinstance(signs, list):
+        signs = [str(signs)] if signs else []
+    data["social_engineering_signs"] = [str(s) for s in signs if s]
+    
+    return data
 
 # ===== Request Handler =====
 class RequestHandler(SimpleHTTPRequestHandler):
@@ -532,7 +605,9 @@ class RequestHandler(SimpleHTTPRequestHandler):
         prompt = build_prompt(message_text, country, pre_analysis)
         
         try:
+            print(f"[SCAN] Calling AI API for text ({len(message_text)} chars), country={country}")
             result = call_ai_api(prompt)
+            print(f"[SCAN] AI returned verdict={result.get('verdict')}, risk={result.get('risk_score')}")
             law = COUNTRY_LAW[country]
             
             # Enrich result
@@ -547,18 +622,29 @@ class RequestHandler(SimpleHTTPRequestHandler):
             # Cache result
             set_cache(message_text, country, result)
             
+            response_json = json.dumps(result, ensure_ascii=False)
+            print(f"[SCAN] Sending {len(response_json)} bytes to frontend")
             self.send_json_response(result)
+            print(f"[SCAN] Response sent successfully")
             
         except (KeyError, IndexError, json.JSONDecodeError) as e:
+            import traceback
+            print(f"[SCAN ERROR] Parse error: {e}")
+            traceback.print_exc()
             self.send_error_response(500, f"Ошибка парсинга ответа ИИ: {e}")
         except urllib.error.HTTPError as e:
+            print(f"[SCAN ERROR] HTTP error: {e.code}")
             if e.code == 429:
                 self.send_error_response(429, "Превышен лимит запросов к ИИ. Подождите 30 секунд и попробуйте снова.")
             else:
                 self.send_error_response(502, f"Ошибка API (код {e.code}). Попробуйте позже.")
         except urllib.error.URLError as e:
+            print(f"[SCAN ERROR] Network error: {e.reason}")
             self.send_error_response(502, f"Не удалось подключиться к ИИ: {e.reason}")
         except Exception as e:
+            import traceback
+            print(f"[SCAN ERROR] Unexpected error: {type(e).__name__}: {e}")
+            traceback.print_exc()
             self.send_error_response(500, f"Внутренняя ошибка: {e}")
     
     def handle_scan_image(self):
