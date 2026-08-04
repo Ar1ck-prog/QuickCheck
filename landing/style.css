@@ -1934,3 +1934,20 @@ img {
         margin-bottom: 8px;
     }
 }
+
+/* ===== Impeccable: Touch Targets & Tactile Feedback ===== */
+@media (pointer: coarse) {
+    .nav-link, .mobile-menu-link, .footer-links-col a, .step-card {
+        min-height: 44px;
+    }
+    .footer-links-col a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        display: inline-flex;
+        align-items: center;
+    }
+}
+
+.btn-primary:active, .btn-secondary:active, .nav-cta:active {
+    transform: scale(0.96) !important;
+}

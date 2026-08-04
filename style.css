@@ -48,7 +48,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding: 40px 20px;
+    padding: max(40px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(40px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
     overflow-x: hidden;
     position: relative;
 }
@@ -140,7 +140,7 @@ body {
 
 h1 {
     font-family: var(--font-heading);
-    font-size: 2.6rem;
+    font-size: clamp(2rem, 5vw + 1rem, 2.6rem);
     font-weight: 700;
     letter-spacing: -0.5px;
 }
@@ -168,7 +168,7 @@ h1 {
 
 .subtitle {
     color: var(--text-secondary);
-    font-size: 1.15rem;
+    font-size: clamp(0.95rem, 3vw, 1.15rem);
     font-weight: 300;
     margin-bottom: 4px;
 }
@@ -1377,10 +1377,9 @@ textarea::placeholder {
 }
 
 @media (max-width: 480px) {
-    h1 { font-size: 2rem; }
     .glass-panel { padding: 18px; }
     .verdict-badge { font-size: 1.2rem; padding: 10px 24px; }
-    body { padding: 20px 12px; }
+    body { padding: max(20px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left)); }
     .result-actions { flex-direction: column; }
     .example-chips { justify-content: center; }
     .toast-container { bottom: 12px; right: 12px; left: 12px; }
@@ -1525,6 +1524,22 @@ textarea::placeholder {
 /* ===== Impeccable: Tactile Feedback ===== */
 .secondary-btn:active, .chip:active, .share-btn:active, .hiw-toggle:active, .faq-item:active {
     transform: scale(0.97) !important;
+}
+
+/* ===== Impeccable: Touch Targets ===== */
+@media (pointer: coarse) {
+    .secondary-btn, .hiw-toggle, .chip {
+        min-height: 44px;
+        padding-top: 14px;
+        padding-bottom: 14px;
+    }
+    .social-icons a {
+        min-width: 44px;
+        min-height: 44px;
+    }
+    .custom-select {
+        min-height: 44px;
+    }
 }
 
 /* ===== Impeccable: View Transitions ===== */
