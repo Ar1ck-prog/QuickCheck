@@ -1,7 +1,11 @@
 import urllib.request, urllib.error, json
 
 models = ['gemini-3.5-flash', 'gemini-3.1-flash-lite', 'gemini-2.0-flash']
-key = 'AQ.Ab8RN6Jg1FF74s7kxUaUCjbL7IlDSN-wPcKQ7JUGMLf5fc9IYQ'
+import os
+
+key = os.environ.get('AI_API_KEY')
+if not key:
+    raise SystemExit('Set AI_API_KEY first: the Gemini API key is read from the environment.')
 
 for model in models:
     url = f'https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={key}'
